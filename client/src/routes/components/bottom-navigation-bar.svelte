@@ -19,16 +19,21 @@
 	}
 
 	onMount(() => {
-		window.addEventListener('scroll', handleScroll);
+		if (typeof window !== 'undefined') {
+			lastScrollY = window.scrollY;
+			window.addEventListener('scroll', handleScroll);
+		}
 	});
 
 	onDestroy(() => {
-		window.removeEventListener('scroll', handleScroll);
+		if (typeof window !== 'undefined') {
+			window.removeEventListener('scroll', handleScroll);
+		}
 	});
 </script>
 
 <div
-	class="fixed bottom-0 left-0 right-0 z-50 mx-auto flex max-w-3xl flex-row justify-around bg-white p-2 transition-transform duration-100"
+	class="fixed bottom-0 left-0 right-0 z-50 mx-auto flex max-w-3xl flex-row justify-around bg-white p-2 transition-transform duration-300"
 	style="transform: translateY({showNav ? '0%' : '100%'})"
 >
 	{#each tabs as tab}
