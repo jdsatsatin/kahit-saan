@@ -43,11 +43,7 @@
 
 <div class="mx-auto max-w-3xl p-4">
 	<h2 class="mb-4 text-xl font-bold">Nearby Stores</h2>
-	<div
-		class="scrollbar-hide flex gap-1 overflow-x-auto pb-2"
-		style="scrollbar-width: none;
-  -ms-overflow-style: none; "
-	>
+	<div class="hide-scrollbar flex gap-1 overflow-x-auto pb-2">
 		{#each stores as store}
 			<div class="w-35 flex-shrink-0 rounded-lg">
 				<img
@@ -60,3 +56,13 @@
 		{/each}
 	</div>
 </div>
+
+<style>
+	.hide-scrollbar {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.hide-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+</style>
