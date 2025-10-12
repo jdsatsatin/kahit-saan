@@ -3,7 +3,7 @@
 </script>
 
 <div
-	class="fixed bottom-0 left-0 right-0 z-50 mx-auto flex max-w-3xl flex-row justify-around bg-white p-2 shadow"
+	class="fixed bottom-0 left-0 right-0 z-50 mx-auto flex max-w-3xl flex-row justify-around bg-white p-2"
 >
 	<div class="flex flex-col items-center justify-center">
 		<House class="h-6 w-6" />
