@@ -1,14 +1,12 @@
 <script lang="ts">
 	import placeholderImage from '$lib/assets/image-placeholder.webp';
-	import placeholderImageGreen from '$lib/assets/image-placeholder-green.webp';
-	import ToyBitz from '$lib/assets/toy-bitz.jpg.png';
-	import Wcdonalds from '$lib/assets/wcdonalds.webp';
-	const stores = [
+
+	const products = [
 		{
 			id: 1,
-			name: '',
+			name: 'Tapsilog',
 			description: 'This is the description for Store 1.',
-			image: ToyBitz
+			image: '/noksilog.jpg'
 		},
 		{
 			id: 3,
@@ -33,17 +31,17 @@
 	];
 </script>
 
-<div class="mx-auto max-w-3xl p-4">
-	<h2 class="mb-4 text-base font-bold">Nearby Stores</h2>
+<div class="mx-auto max-w-3xl px-4 pt-4">
+	<h2 class="mb-4 text-base font-bold">Kain Na!</h2>
 	<div class="hide-scrollbar flex gap-1 overflow-x-auto pb-2">
-		{#each stores as store}
+		{#each products as product}
 			<div class="w-35 flex-shrink-0 rounded-lg">
 				<img
-					src={store.image || placeholderImage}
-					alt={store.name}
+					src={product.image || placeholderImage}
+					alt={product.name}
 					class="mb-2 aspect-square w-full rounded object-contain"
 				/>
-				<p class="text-xs font-semibold">{store.name}</p>
+				<p class="text-xs font-semibold">{product.name}</p>
 			</div>
 		{/each}
 	</div>
