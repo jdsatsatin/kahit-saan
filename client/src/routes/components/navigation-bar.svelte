@@ -38,7 +38,7 @@
 </script>
 
 <div class="bg-[#B0CE88]">
-	<div class="flex max-w-3xl flex-col gap-4 p-4">
+	<div class="mx-auto flex max-w-3xl flex-col gap-4 p-4">
 		<div class="text-start">
 			<AddressHeader />
 		</div>
