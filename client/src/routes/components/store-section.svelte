@@ -40,7 +40,7 @@
 				<img
 					src={store.image || placeholderImage}
 					alt={store.name}
-					class="mb-2 aspect-square w-full rounded object-contain"
+					class="mb-2 aspect-square w-full rounded-2xl object-contain"
 				/>
 				<p class="text-xs font-semibold">{store.name}</p>
 			</div>

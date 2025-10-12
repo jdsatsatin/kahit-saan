@@ -51,6 +51,8 @@
 					class="mb-2 aspect-square w-full rounded object-contain"
 				/>
 				<p class="text-xs font-semibold">{product.name}</p>
+				<p class="pt-1 text-xs">{product.store}</p>
+				<p class="pt-2 text-xs font-semibold">P{product.price}.00</p>
 			</div>
 		{/each}
 	</div>
