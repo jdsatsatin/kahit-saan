@@ -6,7 +6,9 @@
 	import FoodSection from './components/food-section.svelte';
 </script>
 
-<NavigationBar />
-<StoreSection />
-<FoodSection />
+<div class="pb-14">
+	<NavigationBar />
+	<StoreSection />
+	<FoodSection />
+</div>
 <BottomNavigationBar />
