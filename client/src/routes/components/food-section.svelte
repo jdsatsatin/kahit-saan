@@ -5,28 +5,37 @@
 		{
 			id: 1,
 			name: 'Tapsilog',
-			description: 'This is the description for Store 1.',
-			image: '/noksilog.jpg'
+			store: 'Toy Bitz',
+			image: '/noksilog.jpg',
+			price: 50
+		},
+		{
+			id: 2,
+			name: 'Hotsilog',
+			image: '/hotsilog.jpg',
+			store: 'Toy Bitz',
+			price: 50
 		},
 		{
 			id: 3,
-			name: 'Sample Store 3 Cavite City',
-			description: 'This is the description for Store 3.'
+			name: 'Noksilog',
+			image: '/noksilog.jpg',
+			store: 'Toy Bitz',
+			price: 50
 		},
 		{
-			id: 3,
-			name: 'Sample Store 4 Cavite City',
-			description: 'This is the description for Store 3.'
+			id: 4,
+			name: 'Spaghetti',
+			image: '/spaghetti.jpg',
+			store: 'Toy Bitz',
+			price: 50
 		},
 		{
-			id: 3,
-			name: 'Sample Store 5 Cavite City',
-			description: 'This is the description for Store 3.'
-		},
-		{
-			id: 3,
-			name: 'Sample Store 6 Cavite City',
-			description: 'This is the description for Store 3.'
+			id: '5',
+			name: 'Siomai Rice',
+			image: '/siomai-rice.jpg',
+			store: 'Toy Bitz',
+			price: 50
 		}
 	];
 </script>
