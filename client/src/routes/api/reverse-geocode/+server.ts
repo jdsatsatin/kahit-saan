@@ -1,5 +1,6 @@
 import { GOOGLE_GEOCODING_API_KEY } from '$env/static/private';
 import type { RequestHandler } from './$types';
+import { parseAddress } from '$lib/utils/parseAddress';
 
 export const GET: RequestHandler = async ({ url, fetch }) => {
 	const lat = url.searchParams.get('lat');
@@ -17,8 +18,11 @@ export const GET: RequestHandler = async ({ url, fetch }) => {
 		return new Response(JSON.stringify({ error: 'No address found' }), { status: 404 });
 	}
 
+	const parsed = parseAddress(data.results[0]);
+
 	return new Response(
 		JSON.stringify({
+			parsed,
 			formatted_address: data.results[0].formatted_address,
 			raw: data.results[0]
 		}),
