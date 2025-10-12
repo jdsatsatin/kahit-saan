@@ -48,12 +48,3 @@
 	</div>
 </div>
 
-<style>
-	.hide-scrollbar {
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-	}
-	.hide-scrollbar::-webkit-scrollbar {
-		display: none;
-	}
-</style>
