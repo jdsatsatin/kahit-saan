@@ -73,6 +73,14 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+.hide-scrollbar {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+.hide-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
