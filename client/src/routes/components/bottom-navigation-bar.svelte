@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { House, User, MessageCircle, Utensils } from '@lucide/svelte';
+	import { House, Store, Utensils } from '@lucide/svelte';
 	import { onMount, onDestroy } from 'svelte';
 
 	let tabs = [
 		{ name: 'Home', icon: House },
 		{ name: 'Food', icon: Utensils },
-		{ name: 'Chat', icon: MessageCircle },
-		{ name: 'Profile', icon: User }
+		{ name: 'Stores', icon: Store }
 	];
 
 	let showNav = true;
