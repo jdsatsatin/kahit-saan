@@ -16,18 +16,15 @@
 
 <ChildNavbar title="Stores Near You" backLink="/" />
 
-{#each stores as store}
-	<div class="mx-auto max-w-3xl p-4">
-		<div class="flex w-full flex-row gap-5">
+<div class="mx-auto max-w-3xl px-4">
+	{#each stores as store}
+		<div class="flex w-full flex-row gap-5 py-2">
 			<img
 				src={StorageService.getPublicUrl('stores', `${store.id}/${store.logo}`)}
 				alt="Wala"
 				class="h-25 w-25 rounded-2xl"
 			/>
-			<div
-				class="flex flex-col gap-1
-			"
-			>
+			<div class="flex flex-col gap-1">
 				<div class="flex flex-row items-center gap-1">
 					<p class="text-sm font-bold">{store.name}</p>
 					<BadgeCheck class="inline-block h-4 w-4" />
@@ -40,9 +37,8 @@
 				<p class="text-xs text-green-500">10:00 AM - 9:00 PM</p>
 			</div>
 		</div>
-	</div>
-{/each}
-
+	{/each}
+</div>
 {#if loading}
 	<p class="py-4 text-center">Loading...</p>
 {/if}
