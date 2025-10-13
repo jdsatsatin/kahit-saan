@@ -23,7 +23,7 @@
 			<img
 				src={StorageService.getPublicUrl('stores', `${store.id}/${store.logo}`) || placeholderImage}
 				alt="Wala"
-				class="h-20 w-20 rounded-2xl"
+				class="h-30 w-30 rounded-2xl"
 			/>
 			<div class="flex flex-col gap-1">
 				<div class="flex flex-row items-center gap-1">
