@@ -1,6 +1,7 @@
 <script lang="ts">
 	import placeholderImage from '$lib/assets/image-placeholder.webp';
 	import ToyBitz from '$lib/assets/toy-bitz.jpg.png';
+	import { ChevronRight } from '@lucide/svelte';
 
 	const stores = [
 		{
@@ -33,7 +34,13 @@
 </script>
 
 <div class="mx-auto max-w-3xl px-4 pt-4">
-	<h2 class="mb-4 text-base font-bold">Nearby Stores</h2>
+	<div class="align-items-center mb-2 flex justify-between">
+		<h2 class="text-base font-bold">Nearby Stores</h2>
+		<div class="rounded-full bg-gray-100 p-1">
+			<a href="/stores"> <ChevronRight class="h-5 w-5" /> </a>
+		</div>
+	</div>
+
 	<div class="hide-scrollbar flex gap-1 overflow-x-auto pb-2">
 		{#each stores as store}
 			<div class="w-35 flex-shrink-0 rounded-lg">
@@ -47,4 +54,3 @@
 		{/each}
 	</div>
 </div>
-
