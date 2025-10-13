@@ -17,7 +17,7 @@
 <ChildNavbar title="Stores Near You" backLink="/" />
 
 {#each stores as store}
-	<div class="max-w-6xl p-4">
+	<div class="mx-auto max-w-6xl p-4">
 		<div class="flex w-full flex-row gap-4">
 			<img
 				src={StorageService.getPublicUrl('stores', `${store.id}/${store.logo}`)}

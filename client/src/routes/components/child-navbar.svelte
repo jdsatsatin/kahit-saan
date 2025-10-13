@@ -5,7 +5,7 @@
 	export let backLink: string = '/';
 </script>
 
-<div class="relative sticky top-0 flex w-full max-w-6xl items-center bg-white py-2">
+<div class="relative sticky top-0 mx-auto flex w-full max-w-6xl items-center bg-white py-2">
 	<!-- Left arrow -->
 	<a href={backLink} class="absolute left-3 flex items-center">
 		<ArrowLeft class="h-6 w-6" />
