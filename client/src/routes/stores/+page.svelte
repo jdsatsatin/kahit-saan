@@ -17,19 +17,27 @@
 <ChildNavbar title="Stores Near You" backLink="/" />
 
 {#each stores as store}
-	<div class="mx-auto max-w-6xl p-4">
-		<div class="flex w-full flex-row gap-4">
+	<div class="mx-auto max-w-3xl p-4">
+		<div class="flex w-full flex-row gap-5">
 			<img
 				src={StorageService.getPublicUrl('stores', `${store.id}/${store.logo}`)}
 				alt="Wala"
-				class="h-25 w-25"
+				class="h-25 w-25 rounded-2xl"
 			/>
-			<div class="flex flex-col">
+			<div
+				class="flex flex-col gap-1
+			"
+			>
 				<div class="flex flex-row items-center gap-1">
-					<p class="text-sm font-semibold">{store.name}</p>
-					<BadgeCheck class="inline-block h-4 w-4 text-green-500" />
+					<p class="text-sm font-bold">{store.name}</p>
+					<BadgeCheck class="inline-block h-4 w-4" />
 				</div>
 				<p class="text-xs">1.1km away</p>
+				<div class="flex">
+					<p class="text-xs text-gray-900">₱</p>
+					<p class="text-xs text-gray-500">₱₱₱₱₱</p>
+				</div>
+				<p class="text-xs text-green-500">10:00 AM - 9:00 PM</p>
 			</div>
 		</div>
 	</div>
