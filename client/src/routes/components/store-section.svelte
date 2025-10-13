@@ -25,17 +25,19 @@
 
 	<div class="hide-scrollbar flex gap-6 overflow-x-auto pb-2">
 		{#each stores as store}
-			<div class="w-30 flex-shrink-0 rounded-lg">
-				<img
-					src={StorageService.getPublicUrl('stores', `${store.id}/${store.logo}`) ||
-						placeholderImage}
-					alt={store.name}
-					class="mb-2 aspect-square w-full rounded-2xl object-contain"
-				/>
+			<a href={`/stores/${store.id}`}>
+				<div class="w-30 flex-shrink-0 rounded-lg">
+					<img
+						src={StorageService.getPublicUrl('stores', `${store.id}/${store.logo}`) ||
+							placeholderImage}
+						alt={store.name}
+						class="mb-2 aspect-square w-full rounded-2xl object-contain"
+					/>
 
-				<p class="text-xs font-semibold">{store.name}</p>
-				<p class="text-xs text-gray-500">1.1km</p>
-			</div>
+					<p class="text-xs font-semibold">{store.name}</p>
+					<p class="text-xs text-gray-500">1.1km</p>
+				</div>
+			</a>
 		{/each}
 	</div>
 </div>
