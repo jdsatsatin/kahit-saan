@@ -3,9 +3,9 @@
 	import { onMount, onDestroy } from 'svelte';
 
 	let tabs = [
-		{ name: 'Home', icon: House },
-		{ name: 'Food', icon: Utensils },
-		{ name: 'Stores', icon: Store }
+		{ name: 'Home', icon: House, link: '/' },
+		{ name: 'Food', icon: Utensils, link: '/food' },
+		{ name: 'Stores', icon: Store, link: '/stores' }
 	];
 
 	let showNav = true;
@@ -36,9 +36,9 @@
 	style="transform: translateY({showNav ? '0%' : '100%'})"
 >
 	{#each tabs as tab}
-		<div class="flex flex-col items-center justify-center">
+		<a href={tab.link} class="flex flex-col items-center justify-center">
 			<svelte:component this={tab.icon} class="mb-1 h-5 w-5" />
 			<p class="text-xs">{tab.name}</p>
-		</div>
+		</a>
 	{/each}
 </div>
