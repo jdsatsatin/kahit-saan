@@ -1,10 +1,11 @@
 <script lang="ts">
-	// filepath: c:\Users\jdsat\OneDrive\Desktop\nvm\saan-tayo\client\src\routes\stores\+page.svelte
 	import ChildNavbar from '../components/child-navbar.svelte';
 	import { StoreService } from '$lib/services/stores.service';
 	import { StorageService } from '$lib/services/storage.service';
 	import { onMount } from 'svelte';
 	import { BadgeCheck } from '@lucide/svelte';
+	import placeholderImage from '$lib/assets/image-placeholder.webp';
+
 	let stores: any[] = [];
 	let loading = true;
 
@@ -20,9 +21,9 @@
 	{#each stores as store}
 		<div class="flex w-full flex-row gap-5 py-2">
 			<img
-				src={StorageService.getPublicUrl('stores', `${store.id}/${store.logo}`)}
+				src={StorageService.getPublicUrl('stores', `${store.id}/${store.logo}`) || placeholderImage}
 				alt="Wala"
-				class="h-25 w-25 rounded-2xl"
+				class="h-20 w-20 rounded-2xl"
 			/>
 			<div class="flex flex-col gap-1">
 				<div class="flex flex-row items-center gap-1">

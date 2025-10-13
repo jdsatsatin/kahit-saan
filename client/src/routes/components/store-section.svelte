@@ -2,35 +2,17 @@
 	import placeholderImage from '$lib/assets/image-placeholder.webp';
 	import ToyBitz from '$lib/assets/toy-bitz.jpg.png';
 	import { ChevronRight } from '@lucide/svelte';
+	import { StoreService } from '$lib/services/stores.service';
+	import { StorageService } from '$lib/services/storage.service';
+	import { onMount } from 'svelte';
 
-	const stores = [
-		{
-			id: 1,
-			name: 'Toy Bitz',
-			description: 'This is the description for Store 1.',
-			image: ToyBitz
-		},
-		{
-			id: 3,
-			name: 'Sample Store 3 Cavite City',
-			description: 'This is the description for Store 3.'
-		},
-		{
-			id: 3,
-			name: 'Sample Store 4 Cavite City',
-			description: 'This is the description for Store 3.'
-		},
-		{
-			id: 3,
-			name: 'Sample Store 5 Cavite City',
-			description: 'This is the description for Store 3.'
-		},
-		{
-			id: 3,
-			name: 'Sample Store 6 Cavite City',
-			description: 'This is the description for Store 3.'
-		}
-	];
+	let stores: any[] = [];
+	let loading = true;
+
+	onMount(async () => {
+		stores = await StoreService.getStores();
+		loading = false;
+	});
 </script>
 
 <div class="mx-auto max-w-3xl px-4 pt-4">
@@ -41,15 +23,18 @@
 		</div>
 	</div>
 
-	<div class="hide-scrollbar flex gap-1 overflow-x-auto pb-2">
+	<div class="hide-scrollbar flex gap-6 overflow-x-auto pb-2">
 		{#each stores as store}
-			<div class="w-35 flex-shrink-0 rounded-lg">
+			<div class="w-30 flex-shrink-0 rounded-lg">
 				<img
-					src={store.image || placeholderImage}
+					src={StorageService.getPublicUrl('stores', `${store.id}/${store.logo}`) ||
+						placeholderImage}
 					alt={store.name}
 					class="mb-2 aspect-square w-full rounded-2xl object-contain"
 				/>
+
 				<p class="text-xs font-semibold">{store.name}</p>
+				<p class="text-xs text-gray-500">1.1km</p>
 			</div>
 		{/each}
 	</div>
