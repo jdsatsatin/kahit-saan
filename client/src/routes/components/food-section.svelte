@@ -42,13 +42,13 @@
 
 <div class="mx-auto max-w-3xl px-4 pt-4">
 	<h2 class="mb-2 text-base font-bold">Kain Na!</h2>
-	<div class="hide-scrollbar flex gap-1 overflow-x-auto pb-2">
+	<div class="hide-scrollbar flex gap-6 overflow-x-auto pb-2">
 		{#each products as product}
-			<div class="w-35 flex-shrink-0 rounded-lg">
+			<div class="w-30 flex-shrink-0 rounded-lg">
 				<img
 					src={product.image || placeholderImage}
 					alt={product.name}
-					class="mb-2 aspect-square w-full rounded object-contain"
+					class="mb-2 aspect-square w-full rounded-xl object-contain"
 				/>
 				<p class="text-xs font-semibold">{product.name}</p>
 				<p class="pt-1 text-xs">{product.store}</p>
