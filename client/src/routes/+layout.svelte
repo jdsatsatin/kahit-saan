@@ -1,17 +1,20 @@
 <script lang="ts">
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-
+	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query';
 	import { previousRoute } from '$lib/stores/navigation.svelte';
 	import { afterNavigate } from '$app/navigation';
+
+	const queryClient = new QueryClient();
+
 	let { children } = $props();
 
-	let lastRoute: string | '/' = '/';
+	let lastPath: string | null = null;
 
-	afterNavigate((from) => {
-		if (from) {
-			lastRoute = from.from?.url.pathname || '/';
-			previousRoute.set(lastRoute);
+	afterNavigate((nav) => {
+		if (nav.from !== nav.to && nav.from) {
+			lastPath = nav.from?.url.pathname || null;
+			previousRoute.set(lastPath);
 		}
 	});
 </script>
@@ -20,4 +23,6 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{@render children?.()}
+<QueryClientProvider client={queryClient}>
+	{@render children?.()}
+</QueryClientProvider>
