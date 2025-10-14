@@ -32,7 +32,7 @@
 </script>
 
 {#if data.store}
-	<div class="mx-auto max-w-3xl">
+	<div class="mx-auto max-w-3xl pb-24">
 		<Carousel.Root>
 			<Carousel.Content class="h-60">
 				{#each data.store.images as image}
@@ -64,7 +64,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="fixed bottom-0 mx-auto w-full p-4">
+	<div class="fixed bottom-0 mx-auto w-full bg-white p-4">
 		<div class="mx-auto flex max-w-3xl flex-row justify-center gap-2">
 			{#if data.store.facebook_link}
 				<Button
