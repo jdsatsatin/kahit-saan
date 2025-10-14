@@ -1,11 +1,9 @@
-// src/routes/blog/[slug]/+page.ts
 import type { PageLoad } from './$types';
+import { StoreService } from '$lib/services/stores.service';
 
-export const load: PageLoad = ({ params }) => {
-	const { slug } = params;
-
+export const load: PageLoad = async ({ params }) => {
+	const store = await StoreService.getStoreById(params.slug);
 	return {
-		slug
-		// other data
+		store: store || null
 	};
 };
