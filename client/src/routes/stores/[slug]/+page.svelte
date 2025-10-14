@@ -48,7 +48,7 @@
 			</Carousel.Content>
 		</Carousel.Root>
 		<div class="px-4">
-			<p class="mt-4 text-base text-gray-700">{data.store.description}</p>
+			<p class="mt-4 text-sm text-gray-700">{data.store.description}</p>
 			<Separator class="my-4" />
 			<div class="flex flex-col gap-3">
 				{#each contacts as { icon: Icon, info, onclick }}
@@ -56,7 +56,7 @@
 						<button {onclick}>
 							<div class="flex flex-row items-center gap-2">
 								<Icon class="h-5 w-5 flex-shrink-0 text-gray-700" />
-								<p class="truncate text-base text-gray-700">{info}</p>
+								<p class="truncate text-sm text-gray-700">{info}</p>
 							</div>
 						</button>
 					{/if}
