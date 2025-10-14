@@ -5,8 +5,14 @@
 	import { onMount } from 'svelte';
 	import { BadgeCheck } from '@lucide/svelte';
 	import placeholderImage from '$lib/assets/image-placeholder.webp';
+	import type { Database } from '$lib/types/database.types';
+	import { pushState } from '$app/navigation';
 
-	let stores: any[] = [];
+	const showStore = () => {
+		pushState('', { showStore: true });
+	};
+
+	let stores: Database['public']['Tables']['stores']['Row'][] = [];
 	let loading = true;
 
 	onMount(async () => {
