@@ -49,6 +49,7 @@
 	"dependencies": {
 		"@rodneylab/svelte-social-icons": "^0.0.31",
 		"@supabase/supabase-js": "^2.75.0",
-		"@sveltestack/svelte-query": "^1.6.0"
+		"@sveltestack/svelte-query": "^1.6.0",
+		"tesseract.js": "^6.0.1"
 	}
 }

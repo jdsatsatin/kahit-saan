@@ -1,10 +1,9 @@
 <script lang="ts">
 	import '../app.css';
-	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query';
+
 	import { previousRoute } from '$lib/stores/navigation.svelte';
 	import { afterNavigate } from '$app/navigation';
-
-	const queryClient = new QueryClient();
+	import { Toaster } from '$lib/components/ui/sonner/';
 
 	let { children } = $props();
 
@@ -22,6 +21,5 @@
 	<link rel="icon" href="/icon.png" />
 </svelte:head>
 
-<QueryClientProvider client={queryClient}>
-	{@render children?.()}
-</QueryClientProvider>
+<Toaster closeButton />
+{@render children?.()}
