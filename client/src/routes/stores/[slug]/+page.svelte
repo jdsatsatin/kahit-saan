@@ -132,7 +132,7 @@
 	</div>
 
 	<!-- Main Content -->
-	<div class="mx-auto w-full max-w-3xl px-4 py-8 pb-24 md:px-4">
+	<div class="mx-auto w-full max-w-3xl p-4 pb-24">
 		<!-- Store Description Card -->
 		<Card.Root class="mb-4 gap-1 shadow-lg">
 			<Card.Header class="">
