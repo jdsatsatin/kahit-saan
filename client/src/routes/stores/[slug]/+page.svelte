@@ -139,7 +139,7 @@
 				<Card.Title class="text-lg font-semibold text-gray-900">About</Card.Title>
 			</Card.Header>
 			<Card.Content>
-				<p class="text-sm leading-relaxed text-gray-700">
+				<p class="text-base leading-relaxed text-gray-700">
 					{data.store.description || 'No description available.'}
 				</p>
 			</Card.Content>
