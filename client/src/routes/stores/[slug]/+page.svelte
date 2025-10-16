@@ -178,7 +178,7 @@
 		<!-- Menu Card -->
 		<Card.Root class="mt-4 gap-2 shadow-lg">
 			<Card.Header>
-				<Card.Title class="text-xl font-semibold text-gray-900">Menu</Card.Title>
+				<Card.Title class="text-lg font-semibold text-gray-900">Menu</Card.Title>
 			</Card.Header>
 			<Card.Content>
 				<div class="flex items-center justify-center py-8">
