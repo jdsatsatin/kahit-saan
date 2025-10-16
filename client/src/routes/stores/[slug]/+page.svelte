@@ -148,7 +148,7 @@
 		<!-- Contact Information Card -->
 		<Card.Root class="gap-2 shadow-lg">
 			<Card.Header>
-				<Card.Title class="text-xl font-semibold text-gray-900">Contact Information</Card.Title>
+				<Card.Title class="text-lg font-semibold text-gray-900">Contact Information</Card.Title>
 			</Card.Header>
 			<Card.Content class="">
 				<div class="grid gap-1">
