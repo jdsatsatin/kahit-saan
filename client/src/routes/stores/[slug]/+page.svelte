@@ -164,13 +164,25 @@
 									<Icon class="text-primary h-5 w-5" />
 								</div>
 								<div class="min-w-0 flex-1">
-									<p class="w-full truncate font-medium text-gray-900" title={info}>
+									<p class="w-full truncate font-medium text-gray-700" title={info}>
 										{info}
 									</p>
 								</div>
 							</button>
 						{/if}
 					{/each}
+				</div>
+			</Card.Content>
+		</Card.Root>
+
+		<!-- Menu Card -->
+		<Card.Root class="mt-4 gap-2 shadow-lg">
+			<Card.Header>
+				<Card.Title class="text-xl font-semibold text-gray-900">Menu</Card.Title>
+			</Card.Header>
+			<Card.Content>
+				<div class="flex items-center justify-center py-8">
+					<p class="text-lg font-medium text-gray-500">Coming Soon</p>
 				</div>
 			</Card.Content>
 		</Card.Root>
