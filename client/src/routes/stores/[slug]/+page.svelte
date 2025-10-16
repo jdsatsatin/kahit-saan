@@ -122,9 +122,9 @@
 		</button>
 
 		<!-- Store name overlay -->
-		<div class="absolute bottom-0 left-0 right-0 z-20 p-6">
+		<div class="absolute bottom-0 left-0 right-0 z-20 p-4">
 			<div class="mx-auto w-full max-w-3xl">
-				<h1 class="mb-2 text-4xl font-bold tracking-tight text-white md:text-5xl">
+				<h1 class=" text-2xl font-semibold tracking-tight text-white md:text-xl">
 					{data.store.name}
 				</h1>
 			</div>
