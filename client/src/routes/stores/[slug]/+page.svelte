@@ -14,7 +14,8 @@
 		Instagram,
 		X,
 		ChevronLeft,
-		ChevronRight
+		ChevronRight,
+		ArrowLeft
 	} from '@lucide/svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -85,27 +86,38 @@
 
 {#if data.store}
 	<div class="mx-auto max-w-3xl pb-24">
-		<Carousel.Root>
-			<Carousel.Content class="h-60">
-				{#each data.store.images as image, index}
-					<Carousel.Item>
-						<!-- changed onclick -> on:click -->
-						<button on:click={() => openImageOverlay(index)} class="w-full">
-							<div
-								class="relative aspect-[16/9] w-full cursor-pointer overflow-hidden transition-opacity hover:opacity-90"
-							>
-								<img
-									src={StorageService.getPublicUrl('stores', `${data.store.id}/${image}`) ||
-										ImagePlaceholder}
-									alt={data.store.name}
-									class="absolute inset-0 h-full w-full object-cover"
-								/>
-							</div>
-						</button>
-					</Carousel.Item>
-				{/each}
-			</Carousel.Content>
-		</Carousel.Root>
+		<!-- Carousel with overlaid back button -->
+		<div class="relative">
+			<Carousel.Root>
+				<Carousel.Content class="h-60">
+					{#each data.store.images as image, index}
+						<Carousel.Item>
+							<button on:click={() => openImageOverlay(index)} class="w-full">
+								<div
+									class="relative aspect-[16/9] w-full cursor-pointer overflow-hidden transition-opacity hover:opacity-90"
+								>
+									<img
+										src={StorageService.getPublicUrl('stores', `${data.store.id}/${image}`) ||
+											ImagePlaceholder}
+										alt={data.store.name}
+										class="absolute inset-0 h-full w-full object-cover"
+									/>
+								</div>
+							</button>
+						</Carousel.Item>
+					{/each}
+				</Carousel.Content>
+			</Carousel.Root>
+
+			<!-- Back button overlay -->
+			<button
+				on:click={() => goto('/')}
+				class="absolute left-2 top-2 z-10 flex items-center gap-2 rounded-full px-3 py-2 text-white transition-all hover:bg-opacity-70"
+			>
+				<ArrowLeft class="h-5 w-5" />
+			</button>
+		</div>
+
 		<div class="px-4">
 			<p class="mt-4 text-sm text-gray-700">{data.store.description}</p>
 			<Separator class="my-4" />
