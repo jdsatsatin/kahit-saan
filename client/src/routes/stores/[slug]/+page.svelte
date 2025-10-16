@@ -37,12 +37,14 @@
 			<Carousel.Content class="h-60">
 				{#each data.store.images as image}
 					<Carousel.Item>
-						<img
-							src={StorageService.getPublicUrl('stores', `${data.store.id}/${image}`) ||
-								ImagePlaceholder}
-							alt={data.store.name}
-							class="h-60 w-full object-cover"
-						/>
+						<div class="relative aspect-[16/9] w-full overflow-hidden">
+							<img
+								src={StorageService.getPublicUrl('stores', `${data.store.id}/${image}`) ||
+									ImagePlaceholder}
+								alt={data.store.name}
+								class="absolute inset-0 h-full w-full object-cover"
+							/>
+						</div>
 					</Carousel.Item>
 				{/each}
 			</Carousel.Content>
