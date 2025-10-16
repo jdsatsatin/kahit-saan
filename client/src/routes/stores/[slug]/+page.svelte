@@ -124,7 +124,7 @@
 		<!-- Store name overlay -->
 		<div class="absolute bottom-0 left-0 right-0 z-20 p-4">
 			<div class="mx-auto w-full max-w-3xl">
-				<h1 class=" text-2xl font-semibold tracking-tight text-white md:text-xl">
+				<h1 class=" text-2xl font-semibold tracking-tight text-white">
 					{data.store.name}
 				</h1>
 			</div>
@@ -134,12 +134,12 @@
 	<!-- Main Content -->
 	<div class="mx-auto w-full max-w-3xl px-4 py-8 pb-24 md:px-4">
 		<!-- Store Description Card -->
-		<Card.Root class="mb-4 gap-2 shadow-lg">
+		<Card.Root class="mb-4 gap-1 shadow-lg">
 			<Card.Header class="">
-				<Card.Title class="text-xl font-semibold text-gray-900">About</Card.Title>
+				<Card.Title class="text-lg font-semibold text-gray-900">About</Card.Title>
 			</Card.Header>
 			<Card.Content>
-				<p class="text-lg leading-relaxed text-gray-700">
+				<p class="text-sm leading-relaxed text-gray-700">
 					{data.store.description || 'No description available.'}
 				</p>
 			</Card.Content>
@@ -150,18 +150,18 @@
 			<Card.Header>
 				<Card.Title class="text-xl font-semibold text-gray-900">Contact Information</Card.Title>
 			</Card.Header>
-			<Card.Content class="px-2">
+			<Card.Content class="">
 				<div class="grid gap-1">
 					{#each contacts as { icon: Icon, info, onclick }}
 						{#if info}
 							<button
 								{onclick}
-								class="group flex w-full min-w-0 items-center gap-4 rounded-lg p-2 text-left transition-colors hover:bg-gray-50"
+								class="group flex w-full min-w-0 items-center gap-3 rounded-lg py-1 text-left transition-colors hover:bg-gray-50"
 							>
 								<div
-									class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 transition-colors group-hover:bg-gray-200"
+									class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 transition-colors group-hover:bg-gray-200"
 								>
-									<Icon class="text-primary h-6 w-6" />
+									<Icon class="text-primary h-5 w-5" />
 								</div>
 								<div class="min-w-0 flex-1">
 									<p class="w-full truncate font-medium text-gray-900" title={info}>
