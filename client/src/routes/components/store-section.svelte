@@ -1,6 +1,5 @@
 <script lang="ts">
 	import placeholderImage from '$lib/assets/image-placeholder.webp';
-	import ToyBitz from '$lib/assets/toy-bitz.jpg.png';
 	import { ChevronRight } from '@lucide/svelte';
 	import { StoreService } from '$lib/services/stores.service';
 	import { StorageService } from '$lib/services/storage.service';
