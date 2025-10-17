@@ -27,6 +27,12 @@
 	// Derived boolean for showing overlay
 	let showImageOverlay = false;
 
+	// Generate Google Maps embed URL
+	$: googleMapsUrl =
+		data.store?.latitude && data.store?.longitude
+			? `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${data.store.latitude},${data.store.longitude}&zoom=15`
+			: null;
+
 	// Keep currentImageIndex in sync with the URL search param
 	$: {
 		const imageParam = $page.url.searchParams.get('image');
@@ -171,6 +177,27 @@
 		</div>
 
 		<Separator class="bg-gray-100" />
+
+		<!-- Location Map Section -->
+		{#if data.store.latitude && data.store.longitude}
+			<div class="bg-white px-6 py-6">
+				<h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">Location</h2>
+				<div class="overflow-hidden rounded-2xl">
+					<iframe
+						title="Store Location"
+						src={`https://www.google.com/maps?q=${data.store.latitude},${data.store.longitude}&z=15&output=embed`}
+						width="100%"
+						height="280"
+						style="border:0;"
+						loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"
+						class="w-full"
+					></iframe>
+				</div>
+			</div>
+
+			<Separator class="bg-gray-100" />
+		{/if}
 
 		<!-- Menu Section -->
 		<div class="bg-white px-6 py-6">
