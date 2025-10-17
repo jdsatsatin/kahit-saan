@@ -16,7 +16,7 @@
 		if (data.user) {
 			goto('/my-stores');
 		} else if (error) {
-			toast('Your email or password incorrect.');
+			toast(error.message);
 		}
 	};
 </script>
