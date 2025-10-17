@@ -19,28 +19,29 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 
-	// Accept the page data prop correctly (PageProps is the props object type; data is the payload)
-	export let data: PageProps['data'];
+	// Accept the page data prop correctly
+	let { data }: { data: PageProps['data'] } = $props();
 
 	// Current image index as a number or null
-	let currentImageIndex: number | null = null;
-	// Derived boolean for showing overlay
-	let showImageOverlay = false;
+	let currentImageIndex = $state<number | null>(null);
 
-	// Generate Google Maps embed URL
-	$: googleMapsUrl =
-		data.store?.latitude && data.store?.longitude
-			? `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${data.store.latitude},${data.store.longitude}&zoom=15`
-			: null;
+	// Generate Google Maps src - prioritize maps_url, fallback to lat/lng
+	let mapSrc = $derived(
+		data.store?.maps_url
+			? data.store.maps_url
+			: data.store?.latitude && data.store?.longitude
+				? `https://www.google.com/maps?q=${data.store.latitude},${data.store.longitude}&z=15&output=embed`
+				: null
+	);
+
+	// Derived boolean for showing overlay
+	let showImageOverlay = $derived(currentImageIndex !== null);
 
 	// Keep currentImageIndex in sync with the URL search param
-	$: {
+	$effect(() => {
 		const imageParam = $page.url.searchParams.get('image');
 		currentImageIndex = imageParam ? parseInt(imageParam) : null;
-	}
-
-	// Update derived boolean
-	$: showImageOverlay = currentImageIndex !== null;
+	});
 
 	function openImageOverlay(index: number) {
 		const url = new URL($page.url);
@@ -68,7 +69,7 @@
 		openImageOverlay(newIndex);
 	}
 
-	const contacts = [
+	let contacts = $derived([
 		{ icon: MapPin, info: data.store?.address, onclick: () => {} },
 		{ icon: AtSign, info: data.store?.email_address, onclick: () => {} },
 		{ icon: Phone, info: data.store?.phone_number, onclick: () => {} },
@@ -86,7 +87,7 @@
 				window.open(data?.store?.instagram_link ?? 'https://instagram.com', '_blank');
 			}
 		}
-	];
+	]);
 </script>
 
 {#if data.store}
@@ -179,13 +180,13 @@
 		<Separator class="bg-gray-100" />
 
 		<!-- Location Map Section -->
-		{#if data.store.latitude && data.store.longitude}
+		{#if mapSrc}
 			<div class="bg-white px-6 py-6">
 				<h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">Location</h2>
 				<div class="overflow-hidden rounded-2xl">
 					<iframe
 						title="Store Location"
-						src={`https://www.google.com/maps?q=${data.store.latitude},${data.store.longitude}&z=15&output=embed`}
+						src={mapSrc}
 						width="100%"
 						height="280"
 						style="border:0;"

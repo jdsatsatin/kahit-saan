@@ -61,6 +61,7 @@ export type Database = {
 					latitude: number | null;
 					logo: string | null;
 					longitude: number | null;
+					maps_url: string | null;
 					name: string;
 					phone_number: string | null;
 					tiktok_link: string | null;
@@ -79,6 +80,7 @@ export type Database = {
 					latitude?: number | null;
 					logo?: string | null;
 					longitude?: number | null;
+					maps_url?: string | null;
 					name: string;
 					phone_number?: string | null;
 					tiktok_link?: string | null;
@@ -97,6 +99,7 @@ export type Database = {
 					latitude?: number | null;
 					logo?: string | null;
 					longitude?: number | null;
+					maps_url?: string | null;
 					name?: string;
 					phone_number?: string | null;
 					tiktok_link?: string | null;
