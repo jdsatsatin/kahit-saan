@@ -1,13 +1,10 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
-	import ChildNavbar from '../../components/child-navbar.svelte';
 	import * as Carousel from '$lib/components/ui/carousel';
 	import ImagePlaceholder from '$lib/assets/image-placeholder.webp';
 	import { StorageService } from '$lib/services/storage.service';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
-	import * as Card from '$lib/components/ui/card';
-	import Badge from '$lib/components/ui/badge/badge.svelte';
 	import {
 		MapPin,
 		AtSign,
@@ -90,14 +87,14 @@
 	<!-- Hero Section with Image Carousel -->
 	<div class="relative">
 		<Carousel.Root>
-			<Carousel.Content class="h-[70vh] min-h-96">
+			<Carousel.Content class="h-[60vh] min-h-80">
 				{#each data.store.images as image, index}
 					<Carousel.Item>
 						<button onclick={() => openImageOverlay(index)} class="h-full w-full">
 							<div class="relative h-full w-full cursor-pointer overflow-hidden">
 								<!-- Gradient overlay for better text readability -->
 								<div
-									class="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-transparent to-black/20"
+									class="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-transparent to-black/30"
 								></div>
 								<img
 									src={StorageService.getPublicUrl('stores', `${data.store.id}/${image}`) ||
@@ -115,16 +112,18 @@
 		<!-- Back button overlay -->
 		<button
 			onclick={() => goto('/')}
-			class="absolute left-4 top-4 z-20 flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 text-gray-800 shadow-lg backdrop-blur-sm transition-all hover:bg-white"
+			class="absolute left-4 top-4 z-20 flex items-center gap-2 rounded-full bg-black/40 px-4 py-2.5 text-white backdrop-blur-md transition-all hover:bg-black/50 active:scale-95"
 		>
 			<ArrowLeft class="h-4 w-4" />
 			<span class="text-sm font-medium">Back</span>
 		</button>
 
 		<!-- Store name overlay -->
-		<div class="absolute bottom-0 left-0 right-0 z-20 p-4">
+		<div
+			class="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/80 to-transparent p-6"
+		>
 			<div class="mx-auto w-full max-w-3xl">
-				<h1 class=" text-2xl font-semibold tracking-tight text-white">
+				<h1 class="text-3xl font-bold tracking-tight text-white drop-shadow-lg">
 					{data.store.name}
 				</h1>
 			</div>
@@ -132,82 +131,80 @@
 	</div>
 
 	<!-- Main Content -->
-	<div class="mx-auto w-full max-w-3xl p-4 pb-24">
-		<!-- Store Description Card -->
-		<Card.Root class="mb-4 gap-1 shadow-lg">
-			<Card.Header class="">
-				<Card.Title class="text-lg font-semibold text-gray-900">About</Card.Title>
-			</Card.Header>
-			<Card.Content>
-				<p class="text-base leading-relaxed text-gray-700">
-					{data.store.description || 'No description available.'}
-				</p>
-			</Card.Content>
-		</Card.Root>
+	<div class="mx-auto w-full max-w-3xl pb-24">
+		<!-- Store Description Section -->
+		<div class="bg-white px-6 py-6">
+			<h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500">About</h2>
+			<p class="text-base leading-relaxed text-gray-800">
+				{data.store.description || 'No description available.'}
+			</p>
+		</div>
 
-		<!-- Contact Information Card -->
-		<Card.Root class="gap-2 shadow-lg">
-			<Card.Header>
-				<Card.Title class="text-lg font-semibold text-gray-900">Contact Information</Card.Title>
-			</Card.Header>
-			<Card.Content class="">
-				<div class="grid gap-1">
-					{#each contacts as { icon: Icon, info, onclick }}
-						{#if info}
-							<button
-								{onclick}
-								class="group flex w-full min-w-0 items-center gap-3 rounded-lg py-1 text-left transition-colors hover:bg-gray-50"
+		<Separator class="bg-gray-100" />
+
+		<!-- Contact Information Section -->
+		<div class="bg-white px-6 py-6">
+			<h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+				Contact Information
+			</h2>
+			<div class="space-y-1">
+				{#each contacts as { icon: Icon, info, onclick }}
+					{#if info}
+						<button
+							{onclick}
+							class="group flex w-full min-w-0 items-center gap-1 rounded-xl px-2 text-left transition-all active:scale-[0.98] active:bg-gray-50"
+						>
+							<div
+								class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gray-50 transition-colors group-active:bg-gray-100"
 							>
-								<div
-									class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 transition-colors group-hover:bg-gray-200"
-								>
-									<Icon class="text-primary h-5 w-5" />
-								</div>
-								<div class="min-w-0 flex-1">
-									<p class="w-full truncate font-medium text-gray-700" title={info}>
-										{info}
-									</p>
-								</div>
-							</button>
-						{/if}
-					{/each}
-				</div>
-			</Card.Content>
-		</Card.Root>
+								<Icon class="text-primary h-5 w-5" />
+							</div>
+							<div class="min-w-0 flex-1">
+								<p class="w-full truncate text-base font-medium text-gray-800" title={info}>
+									{info}
+								</p>
+							</div>
+						</button>
+					{/if}
+				{/each}
+			</div>
+		</div>
 
-		<!-- Menu Card -->
-		<Card.Root class="mt-4 gap-2 shadow-lg">
-			<Card.Header>
-				<Card.Title class="text-lg font-semibold text-gray-900">Menu</Card.Title>
-			</Card.Header>
-			<Card.Content>
-				<div class="flex items-center justify-center py-8">
-					<p class="text-lg font-medium text-gray-500">Coming Soon</p>
-				</div>
-			</Card.Content>
-		</Card.Root>
+		<Separator class="bg-gray-100" />
+
+		<!-- Menu Section -->
+		<div class="bg-white px-6 py-6">
+			<h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">Menu</h2>
+			<div class="flex items-center justify-center rounded-2xl bg-gray-50 py-16">
+				<p class="text-base font-medium text-gray-400">Coming Soon</p>
+			</div>
+		</div>
 	</div>
 
 	<!-- Fixed Bottom Action Bar -->
-	<div class="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white p-4 shadow-xl">
+	<div
+		class="fixed bottom-0 left-0 right-0 border-t border-gray-100 bg-white/95 p-4 shadow-2xl backdrop-blur-lg"
+	>
 		<div class="mx-auto flex w-full max-w-3xl gap-3">
 			{#if data.store.facebook_link}
 				<Button
-					class="flex-1 bg-[#1877F2] py-6 font-medium text-white hover:bg-[#166FE5]"
+					class="flex-1 rounded-2xl bg-[#1877F2] py-4 text-base font-semibold text-white shadow-lg transition-all hover:bg-[#166FE5] active:scale-[0.98]"
 					onclick={() =>
 						window.open(data?.store?.facebook_link ?? 'https://facebook.com', '_blank')}
 				>
-					<div class="flex items-center justify-center gap-3">
+					<div class="flex items-center justify-center gap-2.5">
 						<img src="/messenger-icon.png" alt="Messenger" class="h-5 w-5" />
-						<span class="text-lg">Message</span>
+						<span>Message</span>
 					</div>
 				</Button>
 			{/if}
 
-			<Button class="flex-1 bg-[#B0CE88] py-6 font-medium text-white hover:bg-[#9BC071]">
-				<div class="flex items-center justify-center gap-3">
+			<Button
+				class="flex-1 rounded-2xl bg-[#B0CE88] py-4 text-base font-semibold text-white shadow-lg transition-all hover:bg-[#9BC071] active:scale-[0.98]"
+			>
+				<div class="flex items-center justify-center gap-2.5">
 					<MapPin class="h-5 w-5" />
-					<span class="text-lg">Get Directions</span>
+					<span>Directions</span>
 				</div>
 			</Button>
 		</div>
@@ -215,12 +212,11 @@
 
 	<!-- Full-screen image overlay -->
 	{#if showImageOverlay && data.store.images && currentImageIndex !== null}
-		<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
+		<div class="fixed inset-0 z-50 flex items-center justify-center bg-black">
 			<!-- Close button -->
 			<button
 				onclick={closeImageOverlay}
-				class="absolute right-4 top-4 z-10 rounded-full bg-black bg-opacity-50 p-2 text-white transition-all
-				hover:bg-opacity-70"
+				class="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
 			>
 				<X class="h-6 w-6" />
 			</button>
@@ -228,14 +224,14 @@
 			<!-- Navigation buttons -->
 			<button
 				onclick={() => navigateImage('prev')}
-				class="absolute left-4 z-10 rounded-full bg-black bg-opacity-50 p-2 text-white transition-all hover:bg-opacity-70"
+				class="absolute left-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
 			>
 				<ChevronLeft class="h-6 w-6" />
 			</button>
 
 			<button
 				onclick={() => navigateImage('next')}
-				class="absolute right-4 z-10 rounded-full bg-black bg-opacity-50 p-2 text-white transition-all hover:bg-opacity-70"
+				class="absolute right-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
 			>
 				<ChevronRight class="h-6 w-6" />
 			</button>
@@ -254,22 +250,25 @@
 
 			<!-- Image counter -->
 			<div
-				class="absolute bottom-4 left-1/2 -translate-x-1/2 transform rounded-full bg-black bg-opacity-50 px-3 py-1 text-sm text-white"
+				class="absolute bottom-6 left-1/2 -translate-x-1/2 transform rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-md"
 			>
 				{(currentImageIndex ?? 0) + 1} / {data.store.images.length}
 			</div>
 		</div>
 	{/if}
 {:else}
-	<div class="flex min-h-screen items-center justify-center px-4">
-		<Card.Root class="w-full max-w-96">
-			<Card.Content class="pt-6">
-				<div class="text-center">
-					<p class="text-lg font-medium text-red-500">Store not found</p>
-					<p class="mt-2 text-gray-600">The store you're looking for doesn't exist.</p>
-					<Button onclick={() => goto('/')} class="mt-4">Go Back Home</Button>
-				</div>
-			</Card.Content>
-		</Card.Root>
+	<div class="flex min-h-screen items-center justify-center bg-gray-50 px-6">
+		<div class="w-full max-w-sm text-center">
+			<div class="rounded-3xl bg-white p-8 shadow-xl">
+				<p class="text-lg font-semibold text-red-500">Store not found</p>
+				<p class="mt-2 text-base text-gray-600">The store you're looking for doesn't exist.</p>
+				<Button
+					onclick={() => goto('/')}
+					class="mt-6 w-full rounded-2xl py-3 text-base font-semibold"
+				>
+					Go Back Home
+				</Button>
+			</div>
+		</div>
 	</div>
 {/if}
