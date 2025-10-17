@@ -4,7 +4,7 @@
 	import ImagePlaceholder from '$lib/assets/image-placeholder.webp';
 	import { StorageService } from '$lib/services/storage.service';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import Separator from '$lib/components/ui/separator/separator.svelte';
+
 	import {
 		MapPin,
 		AtSign,
@@ -18,6 +18,10 @@
 	} from '@lucide/svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import AboutSection from './components/about-section.svelte';
+	import ContactSection from './components/contact-section.svelte';
+	import MapSection from './components/map-section.svelte';
+	import MenuSection from './components/menu-section.svelte';
 
 	// Accept the page data prop correctly
 	let { data }: { data: PageProps['data'] } = $props();
@@ -138,75 +142,18 @@
 	</div>
 
 	<!-- Main Content -->
-	<div class="mx-auto w-full max-w-3xl pb-24">
-		<!-- Store Description Section -->
-		<div class="bg-white px-6 py-6">
-			<h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500">About</h2>
-			<p class="text-base leading-relaxed text-gray-800">
-				{data.store.description || 'No description available.'}
-			</p>
-		</div>
-
-		<Separator class="bg-gray-100" />
+	<div class="pb-24">
+		<AboutSection description={data.store.description} />
 
 		<!-- Contact Information Section -->
-		<div class="bg-white px-6 py-6">
-			<h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
-				Contact Information
-			</h2>
-			<div class="space-y-1">
-				{#each contacts as { icon: Icon, info, onclick }}
-					{#if info}
-						<button
-							{onclick}
-							class="group flex w-full min-w-0 items-center gap-1 rounded-xl text-left transition-all active:scale-[0.98] active:bg-gray-50"
-						>
-							<div
-								class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gray-50 transition-colors group-active:bg-gray-100"
-							>
-								<Icon class="text-primary h-5 w-5" />
-							</div>
-							<div class="min-w-0 flex-1">
-								<p class="w-full truncate text-base font-medium text-gray-800" title={info}>
-									{info}
-								</p>
-							</div>
-						</button>
-					{/if}
-				{/each}
-			</div>
-		</div>
 
-		<Separator class="bg-gray-100" />
+		<ContactSection {contacts} />
 
 		<!-- Location Map Section -->
-		{#if mapSrc}
-			<div class="bg-white px-6 py-6">
-				<h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">Location</h2>
-				<div class="overflow-hidden rounded-2xl">
-					<iframe
-						title="Store Location"
-						src={mapSrc}
-						width="100%"
-						height="280"
-						style="border:0;"
-						loading="lazy"
-						referrerpolicy="no-referrer-when-downgrade"
-						class="w-full"
-					></iframe>
-				</div>
-			</div>
-
-			<Separator class="bg-gray-100" />
-		{/if}
+		<MapSection {mapSrc} />
 
 		<!-- Menu Section -->
-		<div class="bg-white px-6 py-6">
-			<h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">Menu</h2>
-			<div class="flex items-center justify-center rounded-2xl bg-gray-50 py-16">
-				<p class="text-base font-medium text-gray-400">Coming Soon</p>
-			</div>
-		</div>
+		<MenuSection />
 	</div>
 
 	<!-- Fixed Bottom Action Bar -->
