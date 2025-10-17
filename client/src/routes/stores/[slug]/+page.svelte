@@ -152,7 +152,7 @@
 					{#if info}
 						<button
 							{onclick}
-							class="group flex w-full min-w-0 items-center gap-1 rounded-xl px-2 text-left transition-all active:scale-[0.98] active:bg-gray-50"
+							class="group flex w-full min-w-0 items-center gap-1 rounded-xl text-left transition-all active:scale-[0.98] active:bg-gray-50"
 						>
 							<div
 								class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gray-50 transition-colors group-active:bg-gray-100"
