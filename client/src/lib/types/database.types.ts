@@ -64,7 +64,9 @@ export type Database = {
           instagram_link: string | null
           is_available_delivery: boolean | null
           is_available_dine_in: boolean | null
+          latitude: number | null
           logo: string | null
+          longitute: number | null
           name: string
           phone_number: string | null
           tiktok_link: string | null
@@ -80,7 +82,9 @@ export type Database = {
           instagram_link?: string | null
           is_available_delivery?: boolean | null
           is_available_dine_in?: boolean | null
+          latitude?: number | null
           logo?: string | null
+          longitute?: number | null
           name: string
           phone_number?: string | null
           tiktok_link?: string | null
@@ -96,7 +100,9 @@ export type Database = {
           instagram_link?: string | null
           is_available_delivery?: boolean | null
           is_available_dine_in?: boolean | null
+          latitude?: number | null
           logo?: string | null
+          longitute?: number | null
           name?: string
           phone_number?: string | null
           tiktok_link?: string | null
