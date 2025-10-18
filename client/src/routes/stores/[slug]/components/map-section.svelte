@@ -10,7 +10,6 @@
 </script>
 
 <div class="mx-auto w-full max-w-3xl">
-	<!-- Store Description Section -->
 	<div class="bg-white px-6 py-6">
 		<h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">Location</h2>
 		<div class="overflow-hidden rounded-2xl">
