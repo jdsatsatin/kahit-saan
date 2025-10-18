@@ -1,6 +1,6 @@
 import { supabase } from '$lib/supabase/client';
 
-export const StoreService = {
+export const storeService = {
 	async getStores(offset = 0, limit = 10) {
 		const { data, error } = await supabase
 			.from('stores')

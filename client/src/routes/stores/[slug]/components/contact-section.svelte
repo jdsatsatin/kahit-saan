@@ -1,6 +1,38 @@
 <script lang="ts">
-	let { contacts } = $props();
+	import {
+		MapPin,
+		AtSign,
+		Phone,
+		Facebook,
+		Instagram,
+		X,
+		ChevronLeft,
+		ChevronRight,
+		ArrowLeft
+	} from '@lucide/svelte';
+
+	let { store } = $props();
 	import Separator from '$lib/components/ui/separator/separator.svelte';
+
+	let contacts = [
+		{ icon: MapPin, info: store.address, onclick: () => {} },
+		{ icon: AtSign, info: store.email_address, onclick: () => {} },
+		{ icon: Phone, info: store.phone_number, onclick: () => {} },
+		{
+			icon: Facebook,
+			info: store.facebook_link,
+			onclick: () => {
+				window.open(store.facebook_link ?? 'https://facebook.com', '_blank');
+			}
+		},
+		{
+			icon: Instagram,
+			info: store.instagram_link,
+			onclick: () => {
+				window.open(store.instagram_link ?? 'https://instagram.com', '_blank');
+			}
+		}
+	];
 </script>
 
 <div class="mx-auto w-full max-w-3xl">

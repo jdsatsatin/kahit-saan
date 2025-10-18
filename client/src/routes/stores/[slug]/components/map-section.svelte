@@ -1,6 +1,12 @@
 <script lang="ts">
-	let { mapSrc } = $props();
+	let { store } = $props();
 	import Separator from '$lib/components/ui/separator/separator.svelte';
+
+	let mapSrc = store.maps_url
+		? store.maps_url
+		: store?.latitude && store?.longitude
+			? `https://www.google.com/maps?q=${store.latitude},${store.longitude}&z=15&output=embed`
+			: null;
 </script>
 
 <div class="mx-auto w-full max-w-3xl">

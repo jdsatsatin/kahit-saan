@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ChildNavbar from '../components/child-navbar.svelte';
-	import { StoreService } from '$lib/services/stores.service';
+	import { storeService } from '$lib/services/stores.service';
 	import { StorageService } from '$lib/services/storage.service';
 	import { onMount } from 'svelte';
 	import { BadgeCheck } from '@lucide/svelte';
@@ -16,7 +16,7 @@
 	let loading = true;
 
 	onMount(async () => {
-		stores = await StoreService.getStores();
+		stores = await storeService.getStores();
 		loading = false;
 	});
 </script>

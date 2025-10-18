@@ -1,7 +1,7 @@
 <script lang="ts">
 	import placeholderImage from '$lib/assets/image-placeholder.webp';
 	import { ChevronRight } from '@lucide/svelte';
-	import { StoreService } from '$lib/services/stores.service';
+	import { storeService } from '$lib/services/stores.service';
 	import { StorageService } from '$lib/services/storage.service';
 	import { Skeleton } from '$lib/components/ui/skeleton';
 	import { locationStore } from '$lib/stores/location.svelte';
@@ -18,7 +18,7 @@
 	});
 
 	async function loadNearbyStores() {
-		storesPromise = StoreService.getNearbyStores(
+		storesPromise = storeService.getNearbyStores(
 			userLocation.latitude,
 			userLocation.longitude,
 			50,
