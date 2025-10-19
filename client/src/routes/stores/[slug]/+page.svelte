@@ -13,8 +13,11 @@
 	import MenuSection from './components/menu-section.svelte';
 	import type { Database } from '$lib/types/database.types';
 	import { page } from '$app/state';
+	import Spinner from '$lib/components/ui/spinner/spinner.svelte';
+	import Loading from './components/loading.svelte';
 
 	let storePromise: Promise<Database['public']['Tables']['stores']['Row'] | null>;
+
 	let pageId: string | undefined = page.params.slug;
 	if (pageId) {
 		storePromise = storeService.getStoreById(pageId);
@@ -59,7 +62,7 @@
 </script>
 
 {#await storePromise}
-	laoding
+	<Loading />
 {:then store}
 	{#if store}
 		<!-- Hero Section with Image Carousel -->
@@ -70,9 +73,7 @@
 					<Carousel.Item>
 						<button onclick={() => openImageOverlay(index)} class="h-full w-full">
 							<div class="relative h-full w-full cursor-pointer overflow-hidden">
-								 Gradient overlay for better text readability -->
-		 <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-transparent to-black/30"
-								>
+								 <!-- Gradient overlay for better text readability -->
 								<img
 									src={StorageService.getPublicUrl('stores', `${store.id}/${image}`) ||
 										ImagePlaceholder}
@@ -149,7 +150,7 @@
 
 		<!-- Full-screen image overlay -->
 		{#if showImageOverlay && store.images && currentImageIndex !== null}
-		<div class="fixed inset-0 z-50 flex items-center justify-center bg-black"> -->
+		<div class="fixed inset-0 z-50 flex items-center justify-center bg-black">
 		<!-- Close button -->
 		<button
 				onclick={closeImageOverlay}
