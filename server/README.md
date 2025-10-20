@@ -1,1 +1,1 @@
-npx supabase gen types typescript --project-id "ugmyvgjzkbuszhisejkm" --schema public > database.types.ts
+npx supabase gen types typescript --project-id "$PROJECT_REF" --schema public > database.types.ts
