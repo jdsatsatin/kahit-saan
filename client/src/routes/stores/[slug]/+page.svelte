@@ -13,10 +13,13 @@
 	import MenuSection from './components/menu-section.svelte';
 	import type { Database } from '$lib/types/database.types';
 	import { page } from '$app/state';
-	import Spinner from '$lib/components/ui/spinner/spinner.svelte';
 	import Loading from './components/loading.svelte';
 
-	let storePromise: Promise<Database['public']['Tables']['stores']['Row'] | null>;
+	let storePromise: Promise<Database['public']['Tables']['stores']['Row'] | null> = $state(
+		Promise.resolve(null)
+	);
+
+	let store: Database['public']['Tables']['stores']['Row'] | null = null;
 
 	let pageId: string | undefined = page.params.slug;
 	if (pageId) {
@@ -30,24 +33,24 @@
 	let showImageOverlay = $derived(currentImageIndex !== null);
 
 	$effect(() => {
-		const imageParam = $page.url.searchParams.get('image');
+		const imageParam = page.url.searchParams.get('image');
 		currentImageIndex = imageParam ? parseInt(imageParam) : null;
 	});
 
 	function openImageOverlay(index: number) {
-		const url = new URL($page.url);
+		const url = new URL(page.url);
 		url.searchParams.set('image', index.toString());
 		goto(url.toString(), { replaceState: true, noScroll: true });
 	}
 
 	function closeImageOverlay() {
-		const url = new URL($page.url);
+		const url = new URL(page.url);
 		url.searchParams.delete('image');
 		goto(url.toString(), { replaceState: true, noScroll: true });
 	}
 
 	function navigateImage(direction: 'prev' | 'next') {
-		if (!store.images) return;
+		if (!store?.images) return;
 		const current = currentImageIndex ?? 0;
 		let newIndex;
 
@@ -66,45 +69,45 @@
 {:then store}
 	{#if store}
 		<!-- Hero Section with Image Carousel -->
-	<div class="relative">
-		<Carousel.Root>
-			<Carousel.Content class="h-[60vh] min-h-80">
-				{#each store.images as image, index}
-					<Carousel.Item>
-						<button onclick={() => openImageOverlay(index)} class="h-full w-full">
-							<div class="relative h-full w-full cursor-pointer overflow-hidden">
-								 <!-- Gradient overlay for better text readability -->
-								<img
-									src={StorageService.getPublicUrl('stores', `${store.id}/${image}`) ||
-										ImagePlaceholder}
-									alt={store.name}
-									class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-								/>
-							</div>
-						</button>
-					</Carousel.Item>
-				{/each}
-			</Carousel.Content>
-		</Carousel.Root>
+		<div class="relative">
+			<Carousel.Root>
+				<Carousel.Content class="h-[60vh] min-h-80">
+					{#each store.images as image, index}
+						<Carousel.Item>
+							<button onclick={() => openImageOverlay(index)} class="h-full w-full">
+								<div class="relative h-full w-full cursor-pointer overflow-hidden">
+									<!-- Gradient overlay for better text readability -->
+									<img
+										src={StorageService.getPublicUrl('stores', `${store.id}/${image}`) ||
+											ImagePlaceholder}
+										alt={store.name}
+										class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+									/>
+								</div>
+							</button>
+						</Carousel.Item>
+					{/each}
+				</Carousel.Content>
+			</Carousel.Root>
 
-		<button
-			onclick={() => goto('/')}
-			class="absolute left-4 top-4 z-20 flex items-center gap-2 rounded-full bg-black/40 px-4 py-2.5 text-white backdrop-blur-md transition-all hover:bg-black/50 active:scale-95"
-		>
-			<ArrowLeft class="h-4 w-4" />
-			<span class="text-sm font-medium">Back</span>
-		</button>
+			<button
+				onclick={() => goto('/')}
+				class="absolute left-4 top-4 z-20 flex items-center gap-2 rounded-full bg-black/40 px-4 py-2.5 text-white backdrop-blur-md transition-all hover:bg-black/50 active:scale-95"
+			>
+				<ArrowLeft class="h-4 w-4" />
+				<span class="text-sm font-medium">Back</span>
+			</button>
 
-		<div
-			class="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/80 to-transparent p-6"
-		>
-			<div class="mx-auto w-full max-w-3xl">
-				<h1 class="text-3xl font-bold tracking-tight text-white drop-shadow-lg">
-					{store.name}
-				</h1>
+			<div
+				class="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/80 to-transparent p-6"
+			>
+				<div class="mx-auto w-full max-w-3xl">
+					<h1 class="text-3xl font-bold tracking-tight text-white drop-shadow-lg">
+						{store.name}
+					</h1>
+				</div>
 			</div>
 		</div>
-	</div> 
 
 		<!-- Main Content -->
 		<div class="pb-24">
@@ -150,50 +153,50 @@
 
 		<!-- Full-screen image overlay -->
 		{#if showImageOverlay && store.images && currentImageIndex !== null}
-		<div class="fixed inset-0 z-50 flex items-center justify-center bg-black">
-		<!-- Close button -->
-		<button
-				onclick={closeImageOverlay}
-				class="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
-			>
-				<X class="h-6 w-6" />
-			</button>
+			<div class="fixed inset-0 z-50 flex items-center justify-center bg-black">
+				<!-- Close button -->
+				<button
+					onclick={closeImageOverlay}
+					class="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
+				>
+					<X class="h-6 w-6" />
+				</button>
 
-		<!-- Navigation buttons -->
-		<button
-				onclick={() => navigateImage('prev')}
-				class="absolute left-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
-			>
-				<ChevronLeft class="h-6 w-6" />
-			</button>
+				<!-- Navigation buttons -->
+				<button
+					onclick={() => navigateImage('prev')}
+					class="absolute left-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
+				>
+					<ChevronLeft class="h-6 w-6" />
+				</button>
 
-			<button
-				onclick={() => navigateImage('next')}
-				class="absolute right-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
-			>
-				<ChevronRight class="h-6 w-6" />
-			</button>
+				<button
+					onclick={() => navigateImage('next')}
+					class="absolute right-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
+				>
+					<ChevronRight class="h-6 w-6" />
+				</button>
 
-		<!-- Current image -->
-		<div class="flex h-full w-full items-center justify-center p-4">
-				<img
-					src={StorageService.getPublicUrl(
-						'stores',
-						`${store.id}/${store.images[currentImageIndex]}`
-					)}
-					alt={store.name}
-					class="max-h-full max-w-full object-contain"
-				/>
+				<!-- Current image -->
+				<div class="flex h-full w-full items-center justify-center p-4">
+					<img
+						src={StorageService.getPublicUrl(
+							'stores',
+							`${store.id}/${store.images[currentImageIndex]}`
+						)}
+						alt={store.name}
+						class="max-h-full max-w-full object-contain"
+					/>
+				</div>
+
+				<!-- Image counter -->
+				<div
+					class="absolute bottom-6 left-1/2 -translate-x-1/2 transform rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-md"
+				>
+					{(currentImageIndex ?? 0) + 1} / {store.images.length}
+				</div>
 			</div>
-
-		<!-- Image counter -->
-		<div
-				class="absolute bottom-6 left-1/2 -translate-x-1/2 transform rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-md"
-			>
-				{(currentImageIndex ?? 0) + 1} / {store.images.length}
-			</div>
-		</div> 
-	{/if}
+		{/if}
 	{:else}
 		<div class="flex min-h-screen items-center justify-center bg-gray-50 px-6">
 			<div class="w-full max-w-sm text-center">
