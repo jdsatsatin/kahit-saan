@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { LngLatLike } from 'maplibre-gl';
 	import { onMount } from 'svelte';
+	import 'maplibre-gl/dist/maplibre-gl.css';
+
 	let mapContainer: HTMLDivElement | string;
 
 	onMount(async () => {
@@ -14,21 +16,10 @@
 				container: mapContainer,
 				style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
 				center: coordinates,
-				zoom: 14
+				zoom: 13
 			});
 
-			map.addControl(new maplibregl.NavigationControl());
-
-			// Add custom current location marker
-			const locationMarker = new maplibregl.Marker({ color: '#3b82f6' })
-				.setLngLat(coordinates)
-				.addTo(map);
-
-			// Update marker position as user moves
-			navigator.geolocation.watchPosition((pos) => {
-				const newCoords: LngLatLike = [pos.coords.longitude, pos.coords.latitude];
-				locationMarker.setLngLat(newCoords);
-			});
+			// map.addControl(new maplibregl.NavigationControl());
 
 			let geolocate = new maplibregl.GeolocateControl({
 				positionOptions: {
@@ -37,18 +28,31 @@
 				trackUserLocation: true
 			});
 
-			map.addControl(geolocate);
+			map.addControl(geolocate, 'top-right');
+			map.on('load', () => {
+				geolocate.trigger();
+			});
 		});
 	});
 </script>
 
 <div class="relative m-0 h-screen overflow-hidden p-0">
 	<div class="md:w-lg absolute left-1/2 top-4 z-10 w-full -translate-x-1/2 px-4">
-		<input
-			type="text"
-			placeholder="Search..."
-			class="w-full rounded-lg bg-white px-4 py-2 text-black shadow"
-		/>
+		<div class="flex gap-2">
+			<input
+				type="text"
+				placeholder="Search..."
+				class="flex-1 rounded-lg bg-white px-4 py-2 text-black shadow"
+			/>
+		</div>
 	</div>
 	<div bind:this={mapContainer} class="map h-full"></div>
 </div>
+
+<style>
+	:global(.maplibregl-ctrl-top-right) {
+		margin-top: 60px !important;
+		margin-right: 8px !important;
+		/* Add more custom positioning if needed */
+	}
+</style>
