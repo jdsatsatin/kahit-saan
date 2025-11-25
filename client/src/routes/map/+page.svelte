@@ -12,7 +12,7 @@
 
 			const map = new maplibregl.Map({
 				container: mapContainer,
-				style: '/styles/style-osm.json',
+				style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
 				center: coordinates,
 				zoom: 14
 			});
