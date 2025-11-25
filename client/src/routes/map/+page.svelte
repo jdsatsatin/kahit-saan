@@ -93,14 +93,14 @@
 
 <div class="relative m-0 h-screen overflow-hidden p-0">
 	<div class="md:w-lg absolute left-1/2 top-4 z-10 w-full -translate-x-1/2 px-4">
-		<div class="relative flex w-full items-center rounded-2xl bg-white">
+		<div class="relative flex w-full max-w-3xl items-center rounded-2xl bg-white">
 			<Search class="text-muted-background absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
 			<Input
 				type="search"
 				placeholder={display || ''}
 				class="rounded-4xl w-full pl-9 text-gray-700"
 			/>
-			<div class="absolute left-0 top-12 w-full">
+			<div class="absolute left-0 top-11 w-full">
 				<div class="hide-scrollbar flex gap-2 overflow-x-auto pb-2">
 					{#each tags as tag}
 						<div
