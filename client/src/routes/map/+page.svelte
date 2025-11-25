@@ -4,8 +4,6 @@
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { Search } from '@lucide/svelte';
 	import { Input } from '$lib/components/ui/input';
-	import * as Drawer from '$lib/components/ui/drawer';
-	import { Button } from '$lib/components/ui/button';
 	import BottomNavigationBar from '../components/bottom-navigation-bar.svelte';
 
 	let mapContainer: HTMLDivElement | string;
@@ -65,6 +63,14 @@
 				trackUserLocation: true
 			});
 
+			let marker = new maplibregl.Marker({
+				color: '#FFFFFF',
+
+				draggable: true
+			})
+				.setLngLat(coordinates)
+				.addTo(map);
+
 			map.addControl(geolocate, 'top-right');
 			map.on('load', () => {
 				geolocate.trigger();
@@ -86,7 +92,7 @@
 	</div>
 	<div bind:this={mapContainer} class="map h-full"></div>
 	<div class="z-100 absolute bottom-0 min-h-48 w-full rounded-t-2xl bg-white p-4">
-		Hi guix welcoem to my vlog
+		<div class="mx-auto max-w-6xl">Hi guix welcoem to my vlog</div>
 	</div>
 </div>
 <BottomNavigationBar />
