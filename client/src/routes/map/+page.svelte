@@ -2,8 +2,43 @@
 	import type { LngLatLike } from 'maplibre-gl';
 	import { onMount } from 'svelte';
 	import 'maplibre-gl/dist/maplibre-gl.css';
-
+	import { Search } from '@lucide/svelte';
+	import { Input } from '$lib/components/ui/input';
 	let mapContainer: HTMLDivElement | string;
+	let searchValue: string = $state('');
+
+	const placeholders = [
+		'Tapsilog',
+		'Hotsilog',
+		'Chicharon Bulaklak',
+		'Milktea',
+		'Siomai Rice',
+		'Lumpiang Shanghai',
+		'Shawarma Rice'
+	];
+	let current = 0;
+	let display = $state('');
+	let charIndex = 0;
+
+	function animatePlaceholder() {
+		const text = placeholders[current];
+		display = '';
+		charIndex = 0;
+
+		const interval = setInterval(() => {
+			display = text.slice(0, charIndex + 1);
+			charIndex++;
+			if (charIndex === text.length) {
+				clearInterval(interval);
+				setTimeout(() => {
+					current = (current + 1) % placeholders.length;
+					animatePlaceholder();
+				}, 1200); // Pause before next word
+			}
+		}, 100); // Typing speed
+	}
+
+	animatePlaceholder();
 
 	onMount(async () => {
 		const maplibregl = await import('maplibre-gl');
@@ -18,8 +53,6 @@
 				center: coordinates,
 				zoom: 13
 			});
-
-			// map.addControl(new maplibregl.NavigationControl());
 
 			let geolocate = new maplibregl.GeolocateControl({
 				positionOptions: {
@@ -38,11 +71,12 @@
 
 <div class="relative m-0 h-screen overflow-hidden p-0">
 	<div class="md:w-lg absolute left-1/2 top-4 z-10 w-full -translate-x-1/2 px-4">
-		<div class="flex gap-2">
-			<input
-				type="text"
-				placeholder="Search..."
-				class="flex-1 rounded-lg bg-white px-4 py-2 text-black shadow"
+		<div class="relative flex w-full items-center rounded-2xl bg-white">
+			<Search class="text-muted-background absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+			<Input
+				type="search"
+				placeholder={display || ''}
+				class="w-full rounded-2xl pl-9 text-gray-700"
 			/>
 		</div>
 	</div>
@@ -51,8 +85,6 @@
 
 <style>
 	:global(.maplibregl-ctrl-top-right) {
-		margin-top: 60px !important;
-		margin-right: 8px !important;
-		/* Add more custom positioning if needed */
+		display: none;
 	}
 </style>
