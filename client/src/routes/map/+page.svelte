@@ -91,32 +91,34 @@
 	});
 </script>
 
-<div class="relative m-0 h-screen overflow-hidden bg-black p-0">
+<div class="relative m-0 h-screen overflow-hidden p-0">
 	<div class="md:w-lg absolute left-1/2 top-4 z-10 w-full -translate-x-1/2 px-4">
 		<div class="relative flex w-full items-center rounded-2xl bg-white">
 			<Search class="text-muted-background absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
 			<Input
 				type="search"
 				placeholder={display || ''}
-				class="w-full rounded-2xl pl-9 text-gray-700"
+				class="rounded-4xl w-full pl-9 text-gray-700"
 			/>
-			<div class="absolute top-12">
-				<div class="hide-scrollbar flex max-w-3xl gap-2 overflow-x-auto">
+			<div class="absolute left-0 top-12 w-full">
+				<div class="hide-scrollbar flex gap-2 overflow-x-auto pb-2">
 					{#each tags as tag}
 						<div
-							class="flex shrink-0 items-center gap-2 rounded-3xl bg-white px-2 py-1 text-gray-800"
+							class="flex shrink-0 items-center gap-2 rounded-3xl bg-white px-3 py-1 text-gray-800 shadow-sm"
 						>
 							<tag.icon class="h-4 w-4" />{tag.name}
 						</div>
 					{/each}
+					<!-- <div class="w-1 shrink-0"></div> -->
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div bind:this={mapContainer} class="map h-full"></div>
 	<div class="z-100 absolute bottom-0 min-h-48 w-full rounded-t-2xl bg-white p-4">
 		<div class="mx-auto max-w-3xl">
-			<div class="flex justify-center">Hi guix welcoem to my vlog</div>
+			<div class="flex justify-center">Hi guix wala pakong maisip dito pero coming soon na</div>
 		</div>
 	</div>
 </div>
