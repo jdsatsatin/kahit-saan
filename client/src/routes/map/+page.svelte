@@ -4,6 +4,10 @@
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { Search } from '@lucide/svelte';
 	import { Input } from '$lib/components/ui/input';
+	import * as Drawer from '$lib/components/ui/drawer';
+	import { Button } from '$lib/components/ui/button';
+	import BottomNavigationBar from '../components/bottom-navigation-bar.svelte';
+
 	let mapContainer: HTMLDivElement | string;
 	let searchValue: string = $state('');
 
@@ -81,7 +85,11 @@
 		</div>
 	</div>
 	<div bind:this={mapContainer} class="map h-full"></div>
+	<div class="z-100 absolute bottom-0 min-h-48 w-full rounded-t-2xl bg-white p-4">
+		Hi guix welcoem to my vlog
+	</div>
 </div>
+<BottomNavigationBar />
 
 <style>
 	:global(.maplibregl-ctrl-top-right) {
