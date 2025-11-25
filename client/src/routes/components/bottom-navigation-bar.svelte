@@ -33,7 +33,7 @@
 </script>
 
 <div
-	class="z-200 fixed bottom-0 left-0 right-0 mx-auto flex max-w-6xl flex-row justify-around bg-white p-2 transition-transform duration-300"
+	class="z-200 fixed bottom-0 left-0 right-0 mx-auto flex max-w-3xl flex-row justify-around bg-white p-2 transition-transform duration-300"
 	style="transform: translateY({showNav ? '0%' : '100%'})"
 >
 	{#each tabs as tab}
