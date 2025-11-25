@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { House, Store, Utensils } from '@lucide/svelte';
+	import { House, Store, Utensils, Map } from '@lucide/svelte';
 	import { onMount, onDestroy } from 'svelte';
 
 	let tabs = [
 		{ name: 'Home', icon: House, link: '/' },
+		{ name: 'Map', icon: Map, link: '/map' },
 		{ name: 'Food', icon: Utensils, link: '/food' },
 		{ name: 'Stores', icon: Store, link: '/stores' }
 	];
@@ -32,7 +33,7 @@
 </script>
 
 <div
-	class="fixed bottom-0 left-0 right-0 z-50 mx-auto flex max-w-3xl flex-row justify-around bg-white p-2 transition-transform duration-300"
+	class="z-200 fixed bottom-0 left-0 right-0 mx-auto flex max-w-3xl flex-row justify-around bg-white p-2 transition-transform duration-300"
 	style="transform: translateY({showNav ? '0%' : '100%'})"
 >
 	{#each tabs as tab}
