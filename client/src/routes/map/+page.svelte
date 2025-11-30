@@ -32,27 +32,6 @@
 	let display = $state('');
 	let charIndex = 0;
 
-	// Search Animate
-	function animatePlaceholder() {
-		const text = placeholders[current];
-		display = '';
-		charIndex = 0;
-
-		const interval = setInterval(() => {
-			display = text.slice(0, charIndex + 1);
-			charIndex++;
-			if (charIndex === text.length) {
-				clearInterval(interval);
-				setTimeout(() => {
-					current = (current + 1) % placeholders.length;
-					animatePlaceholder();
-				}, 1200); // Pause before next word
-			}
-		}, 100); // Typing speed
-	}
-
-	animatePlaceholder();
-
 	// Location
 	onMount(async () => {
 		const maplibregl = await import('maplibre-gl');
