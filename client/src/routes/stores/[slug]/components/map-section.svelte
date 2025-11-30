@@ -10,7 +10,7 @@
 </script>
 
 <div class="mx-auto w-full max-w-3xl">
-	<div class="bg-white px-6 py-6">
+	<div class="bg-white px-4 py-6">
 		<h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">Location</h2>
 		<div class="overflow-hidden rounded-2xl">
 			<iframe

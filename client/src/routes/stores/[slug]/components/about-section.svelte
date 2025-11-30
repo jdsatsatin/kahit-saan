@@ -4,7 +4,7 @@
 </script>
 
 <div class="mx-auto w-full max-w-3xl">
-	<div class="bg-white px-6 py-6">
+	<div class="bg-white px-4 py-6">
 		<h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500">About</h2>
 		<p class="text-base leading-relaxed text-gray-800">
 			{description || 'No description available.'}
