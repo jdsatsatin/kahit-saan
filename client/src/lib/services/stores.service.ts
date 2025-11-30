@@ -12,6 +12,9 @@ export const storeService = {
 		return data;
 	},
 
+	//
+	async createStore() {},
+
 	async getStoreById(id: string) {
 		const { data, error } = await supabase.from('stores').select('*').eq('id', id).single();
 		if (error) {
