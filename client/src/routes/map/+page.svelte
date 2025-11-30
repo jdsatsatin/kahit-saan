@@ -31,6 +31,28 @@
 	let current = 0;
 	let display = $state('');
 	let charIndex = 0;
+	let coords: [number, number] = $state([0, 0]);
+
+	// Search Animate
+	function animatePlaceholder() {
+		const text = placeholders[current];
+		display = '';
+		charIndex = 0;
+
+		const interval = setInterval(() => {
+			display = text.slice(0, charIndex + 1);
+			charIndex++;
+			if (charIndex === text.length) {
+				clearInterval(interval);
+				setTimeout(() => {
+					current = (current + 1) % placeholders.length;
+					animatePlaceholder();
+				}, 1200); // Pause before next word
+			}
+		}, 100); // Typing speed
+	}
+
+	animatePlaceholder();
 
 	// Location
 	onMount(async () => {
@@ -51,7 +73,7 @@
 
 			// When the map is clicked
 			map.on('click', function (e) {
-				const coords = [e.lngLat.lng, e.lngLat.lat];
+				coords = [e.lngLat.lng, e.lngLat.lat];
 
 				// If marker exists, move it. If not, create new.
 				if (marker) {
@@ -113,7 +135,9 @@
 	<div bind:this={mapContainer} class="map h-full"></div>
 	<div class="z-100 absolute bottom-0 min-h-48 w-full rounded-t-2xl bg-white p-4">
 		<div class="mx-auto max-w-3xl">
-			<div class="flex justify-center">Hi guix wala pakong maisip dito pero coming soon na</div>
+			<div class="flex justify-center">
+				{coords[0]}
+			</div>
 		</div>
 	</div>
 </div>
