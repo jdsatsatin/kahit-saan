@@ -26,6 +26,7 @@
 		{ name: 'Silog', icon: EggFried }
 	];
 	const placeholders = [
+		'Saan may...',
 		'Tapsilog',
 		'Hotsilog',
 		'Chicharon Bulaklak',
@@ -159,34 +160,30 @@
 	</div>
 
 	<div bind:this={mapContainer} class="map h-full"></div>
-	<div class="z-100 absolute bottom-0 min-h-48 w-full rounded-t-3xl bg-white p-4">
+	<div class="z-100 absolute bottom-0 hidden min-h-48 w-full rounded-t-3xl bg-white p-4">
 		<div class="mx-auto max-w-3xl">
 			<div class="flex flex-col gap-2">
-				<div class="flex flex-row text-lg">
-					<!-- {coords[0].toString().slice(0, 8)},
+				{#if placeName}
+					{placeName}
+				{:else}
+					<div class="flex flex-row text-lg">
+						<!-- {coords[0].toString().slice(0, 8)},
 					{coords[1].toString().slice(0, 8)} -->
-					{#if placeName}
-						{placeName}
-					{:else}
+
 						{coords[0].toString()},
 						{coords[1].toString()}
-					{/if}
-				</div>
-				<Separator />
-				<button>
-					<div class=" flex flex-row items-center gap-2 text-lg">
-						<MapPin />
-						<p class="">Add a landmark</p>
 					</div>
-				</button>
+
+					<Separator />
+					<button>
+						<div class=" flex flex-row items-center gap-2 text-lg">
+							<MapPin />
+							<p class="">Add a landmark</p>
+						</div>
+					</button>
+				{/if}
 			</div>
 		</div>
 	</div>
 </div>
-<BottomNavigationBar />
-
-<style>
-	:global(.maplibregl-ctrl-top-right) {
-		display: none;
-	}
-</style>
+<!-- <BottomNavigationBar /> -->
