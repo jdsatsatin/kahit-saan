@@ -143,7 +143,7 @@
 					{coords[1].toString().slice(0, 8)}
 				</div>
 				<Separator />
-				<button onclick={pushState('')}>
+				<button>
 					<div class=" flex flex-row items-center gap-2 text-lg">
 						<MapPin />
 						<p class="">Add a landmark</p>
