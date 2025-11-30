@@ -2,12 +2,14 @@
 	import type { LngLatLike } from 'maplibre-gl';
 	import { onMount } from 'svelte';
 	import 'maplibre-gl/dist/maplibre-gl.css';
-	import { Search, Utensils, Coffee, Bike, EggFried, Mic } from '@lucide/svelte';
+	import { Search, Utensils, Coffee, Bike, EggFried, Mic, Store, MapPin } from '@lucide/svelte';
 	import { Input } from '$lib/components/ui/input';
 	import BottomNavigationBar from '../components/bottom-navigation-bar.svelte';
+	import { Separator } from '$lib/components/ui/separator';
+	import { pushState } from '$app/navigation';
 
+	// let searchValue: string = $state('');
 	let mapContainer: HTMLDivElement | string;
-	let searchValue: string = $state('');
 
 	const tags = [
 		{ name: 'Dine-in', icon: Utensils },
@@ -133,10 +135,20 @@
 	</div>
 
 	<div bind:this={mapContainer} class="map h-full"></div>
-	<div class="z-100 absolute bottom-0 min-h-48 w-full rounded-t-2xl bg-white p-4">
+	<div class="z-100 absolute bottom-0 min-h-48 w-full rounded-t-3xl bg-white p-4">
 		<div class="mx-auto max-w-3xl">
-			<div class="flex justify-center">
-				{coords[0]}
+			<div class="flex flex-col gap-2">
+				<div class="flex flex-row text-lg">
+					{coords[0].toString().slice(0, 8)},
+					{coords[1].toString().slice(0, 8)}
+				</div>
+				<Separator />
+				<button onclick={pushState('')}>
+					<div class=" flex flex-row items-center gap-2 text-lg">
+						<MapPin />
+						<p class="">Add a landmark</p>
+					</div>
+				</button>
 			</div>
 		</div>
 	</div>
