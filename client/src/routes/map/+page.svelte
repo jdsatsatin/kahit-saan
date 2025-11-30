@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { LngLatLike } from 'maplibre-gl';
+	import type { LngLatLike, Marker } from 'maplibre-gl';
 	import { onMount } from 'svelte';
 	import 'maplibre-gl/dist/maplibre-gl.css';
 	import { Search, Utensils, Coffee, Bike, EggFried, Mic, Store, MapPin } from '@lucide/svelte';
@@ -10,6 +10,10 @@
 
 	// let searchValue: string = $state('');
 	let mapContainer: HTMLDivElement | string;
+
+	let places: { name: string; coords: number[] }[] = [
+		{ name: 'Mcdonalds J Felipe', coords: [120.88931981432847, 14.475831464503358] }
+	];
 
 	const tags = [
 		{ name: 'Dine-in', icon: Utensils },
@@ -35,6 +39,8 @@
 	let charIndex = 0;
 	let coords: [number, number] = $state([0, 0]);
 
+	let placeName: string | null = $state(null);
+
 	// Search Animate
 	function animatePlaceholder() {
 		const text = placeholders[current];
@@ -56,43 +62,57 @@
 
 	animatePlaceholder();
 
-	// Location
+	// MapGL
 	onMount(async () => {
+		// Map Initialization
 		const maplibregl = await import('maplibre-gl');
 
-		// Get initial position
-		navigator.geolocation.getCurrentPosition(async (pos) => {
-			let coordinates: LngLatLike = [pos.coords.longitude, pos.coords.latitude];
+		// Initialize Marker Pointer
+		let markerPointer: Marker;
 
+		// Get position
+		navigator.geolocation.getCurrentPosition(async (pos) => {
 			const map = new maplibregl.Map({
 				container: mapContainer,
 				style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
-				center: coordinates,
+				center: [pos.coords.longitude, pos.coords.latitude],
 				zoom: 13
 			});
 
-			let marker = null;
+			// Map All Places
+			places.forEach((place) => {
+				const marker = new maplibregl.Marker({ color: '#3b82f6', draggable: false })
+					.setLngLat({ lng: place.coords[0], lat: place.coords[1] })
+					.addTo(map);
+
+				marker.getElement().addEventListener('click', (e) => {
+					e.stopPropagation(); // Prevent map click event
+					placeName = place.name;
+					coords = [place.coords[0], place.coords[1]];
+					console.log('Marker clicked:', place.name);
+				});
+			});
 
 			// When the map is clicked
 			map.on('click', function (e) {
 				coords = [e.lngLat.lng, e.lngLat.lat];
+				placeName = null;
 
-				// If marker exists, move it. If not, create new.
-				if (marker) {
-					marker.setLngLat(coords);
-				} else {
-					marker = new maplibregl.Marker({ color: '#3b82f6', draggable: true })
+				// If Marker pointer does not exist, create one
+				if (!markerPointer) {
+					markerPointer = new maplibregl.Marker({
+						color: '#3b82f6',
+						draggable: true
+					})
 						.setLngLat(coords)
-						.setPopup(
-							new maplibregl.Popup({ offset: 25 }).setHTML(
-								`<div class="info-box">Hello Manila!</div>`
-							)
-						)
 						.addTo(map);
+				} else {
+					// If it exists move the pointer
+					markerPointer.setLngLat(coords);
 				}
-
-				console.log('Marker placed at:', coords);
 			});
+
+			// Add geolocate
 			let geolocate = new maplibregl.GeolocateControl({
 				positionOptions: {
 					enableHighAccuracy: true
@@ -100,7 +120,8 @@
 				trackUserLocation: true
 			});
 
-			map.addControl(geolocate, 'top-right');
+			// Add contr
+			map.addControl(geolocate);
 			map.on('load', () => {
 				geolocate.trigger();
 			});
@@ -139,8 +160,14 @@
 		<div class="mx-auto max-w-3xl">
 			<div class="flex flex-col gap-2">
 				<div class="flex flex-row text-lg">
-					{coords[0].toString().slice(0, 8)},
-					{coords[1].toString().slice(0, 8)}
+					<!-- {coords[0].toString().slice(0, 8)},
+					{coords[1].toString().slice(0, 8)} -->
+					{#if placeName}
+						{placeName}
+					{:else}
+						{coords[0].toString()},
+						{coords[1].toString()}
+					{/if}
 				</div>
 				<Separator />
 				<button>
