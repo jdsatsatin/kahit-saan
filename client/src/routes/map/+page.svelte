@@ -2,7 +2,7 @@
 	import type { LngLatLike } from 'maplibre-gl';
 	import { onMount } from 'svelte';
 	import 'maplibre-gl/dist/maplibre-gl.css';
-	import { Search, Utensils, Coffee, Bike, EggFried } from '@lucide/svelte';
+	import { Search, Utensils, Coffee, Bike, EggFried, Mic } from '@lucide/svelte';
 	import { Input } from '$lib/components/ui/input';
 	import BottomNavigationBar from '../components/bottom-navigation-bar.svelte';
 
@@ -13,7 +13,7 @@
 		{ name: 'Dine-in', icon: Utensils },
 		{ name: 'Take out', icon: Bike },
 		{ name: 'Cafe', icon: Coffee },
-		{ name: 'Silog', icon: EggFried },
+		{ name: 'KTV', icon: Mic },
 		{ name: 'Dine-in', icon: Utensils },
 		{ name: 'Take out', icon: Bike },
 		{ name: 'Cafe', icon: Coffee },
@@ -68,6 +68,28 @@
 				zoom: 13
 			});
 
+			let marker = null;
+
+			// When the map is clicked
+			map.on('click', function (e) {
+				const coords = [e.lngLat.lng, e.lngLat.lat];
+
+				// If marker exists, move it. If not, create new.
+				if (marker) {
+					marker.setLngLat(coords);
+				} else {
+					marker = new maplibregl.Marker({ color: '#3b82f6', draggable: true })
+						.setLngLat(coords)
+						.setPopup(
+							new maplibregl.Popup({ offset: 25 }).setHTML(
+								`<div class="info-box">Hello Manila!</div>`
+							)
+						)
+						.addTo(map);
+				}
+
+				console.log('Marker placed at:', coords);
+			});
 			let geolocate = new maplibregl.GeolocateControl({
 				positionOptions: {
 					enableHighAccuracy: true
@@ -75,20 +97,14 @@
 				trackUserLocation: true
 			});
 
-			let marker = new maplibregl.Marker({
-				color: '#FFFFFF',
-
-				draggable: true
-			})
-				.setLngLat(coordinates)
-				.addTo(map);
-
 			map.addControl(geolocate, 'top-right');
 			map.on('load', () => {
 				geolocate.trigger();
 			});
 		});
 	});
+
+	onMount(() => {});
 </script>
 
 <div class="relative m-0 h-screen overflow-hidden p-0">
