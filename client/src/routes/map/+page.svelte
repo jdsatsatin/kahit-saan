@@ -68,7 +68,7 @@
 		const maplibregl = await import('maplibre-gl');
 
 		// Initialize Marker Pointer
-		let markerPointer: Marker;
+		let markerPointer: Marker | null;
 
 		// Get position
 		navigator.geolocation.getCurrentPosition(async (pos) => {
@@ -89,7 +89,12 @@
 					e.stopPropagation(); // Prevent map click event
 					placeName = place.name;
 					coords = [place.coords[0], place.coords[1]];
-					console.log('Marker clicked:', place.name);
+
+					// Remove marker pointer if it exists
+					if (markerPointer) {
+						markerPointer.remove();
+						markerPointer = null;
+					}
 				});
 			});
 
