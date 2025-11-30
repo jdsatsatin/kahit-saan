@@ -132,8 +132,6 @@
 			});
 		});
 	});
-
-	onMount(() => {});
 </script>
 
 <div class="relative m-0 h-screen overflow-hidden p-0">
